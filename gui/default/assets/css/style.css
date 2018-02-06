@@ -3,23 +3,23 @@
 
 @font-face{
 	font-family:'Venera-900';
-	src:url(../fonts/Venera-900.otf);
+	src:url(../font/Venera-900.otf);
 }
 @font-face{
 	font-family:'Venera-500';
-	src:url(../fonts/Venera-500.otf);
+	src:url(../font/Venera-500.otf);
 }
 @font-face{
 	font-family:'Roboto-Black';
-	src:url(../fonts/Roboto-Black.ttf);
+	src:url(../font/Roboto-Black.ttf);
 }
 @font-face{
 	font-family:'Roboto-Regular';
-	src:url(../fonts/Roboto-Regular.ttf);
+	src:url(../font/Roboto-Regular.ttf);
 }
 @font-face{
 	font-family:'Roboto-Bold';
-	src:url(../fonts/Roboto-Bold.ttf);
+	src:url(../font/Roboto-Bold.ttf);
 }
 body{
 	font-family:'Roboto-Regular';
