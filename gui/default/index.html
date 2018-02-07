@@ -50,8 +50,10 @@
         </div>
         <ul class=" navbar-menu animate">
           <li><a href="" ng-click="editSettings()"><span translate>Settings</span></a></li>
-          <li><a href="#">About / Version</a></li>
-          <li><a href="#">Contact Support</a></li>
+          <li><a href="" data-toggle="modal" data-target="#about"><span translate>About / Version</span></a></li>
+          <li><a href="https://docs.syncthing.net/intro/gui.html" target="_blank">
+            <span translate>Contact Support</span>
+          </a></li>
         </ul>
       </nav>
       <div  class="navbar-brand text-center">
@@ -123,17 +125,17 @@
         <div class="col-md-4 p-0 brdr-rt">
           <div class="d2b">
             <img src="assets/img/box.png" class="bx-img">
-            <p>Source</p>
+            <p><span translate>Source</span></p>
           </div>
           <div ng-repeat="deviceCfg in [thisDevice()]">
             <div class="txt-hd">
               <div class="txt-lft">
-                  <p class="n-hd">Name</p>
+                  <p class="n-hd"><span translate>Name</span></p>
                   <p>{{deviceName(deviceCfg)}}</p> 
                 </div>
                 <div class="txt-rt">
-                  <p>Status</p>
-                  <p class="h-txt">healthy</p>
+                  <p><span translate>Status</span></p>
+                  <p class="h-txt">{{deviceStatus(deviceCfg)}}</p>
                 </div>
             </div>
   
@@ -178,59 +180,70 @@
               <div class="col-md-4">
                 <div class="aa-image">
                   <div class="img1"><a href="#"><img src="assets/img/down-arrow.png" class="img-fluid mb-5"></a></div>
-                  <div class="img2"><a href="#"><img src="assets/img/refresh.png" class="img-fluid"></a></div>
+                  <div class="img2"><a href="" ng-click="rescanAllFolders()"><img src="assets/img/refresh.png" class="img-fluid"></a></div>
                 </div>
               </div>
               <div class="col-md-8">
                 <div class="rt-section">
-                  <img src="assets/img/triangle-arrow.png" class="arrow-img">
-                  <div class="d2b">
-                    <img src="assets/img/box.png" class="bx-img">
-                    <p class="m-0">Destination</p>
-                  </div>
-                  <!--/d2b-->
-                  <div class="txt-hd">
-                    <div class="txt-lft">
-                      <p class="n-hd">Name</p>
-                      <p>Mr. Symply</p>
-                    </div>
-                    <div class="txt-rt">
-                      <p>Status</p>
-                      <p class="h-txt">healthy</p>
-                    </div>
-                  </div>
-                  <!--/txt-hd-->
-                  <div class="selected">
-                    <div class="lst-lft">
-                      <ul>
-                        <li>Location</li>
-                        <li>Ip Address</li>
-                        <li>Inbound Rate</li>
-                        <li>Outbound Rate</li>
-                        <li>Uptime</li>
-                        <li>Run Time</li>
-                      </ul>
-                    </div>
-                    <div class="lst-rt">
-                      <ul>
-                        <li>Torrance CA, Rack 1</li>
-                        <li>192.168.1.2</li>
-                        <li>10bits/sec</li>
-                        <li>0 bits/sec</li>
-                        <li>17 days, 4 hrs, 3 min</li>
-                        <li>36 minutes</li>
-                      </ul>
-                    </div>
-                    <div class="lst-rt last">
-                      <ul>
-                        <li>&nbsp;</li>
-                        <li>Stats</li>
-                      </ul>
-                    </div>
+                  <div ng-repeat="deviceCfg in otherDevices()">
 
+                    <img src="assets/img/triangle-arrow.png" class="arrow-img">
+                    <div class="d2b">
+                      <img src="assets/img/box.png" class="bx-img">
+                      <p class="m-0">Destination</p>
+                    </div>
+                    <!--/d2b-->
+                    <div class="txt-hd">
+                      <div class="txt-lft">
+                        <p class="n-hd">Name</p>
+                        <p>{{deviceName(deviceCfg)}}</p>
+                      </div>
+                      <div class="txt-rt">
+                        <p>Status</p>
+                        <p class="h-txt">{{deviceStatus(deviceCfg)}}</p>
+                      </div>
+                    </div>
+                    <!--/txt-hd-->
+                    <div class="selected">
+                      <div class="lst-lft">
+                        <ul>
+                          <li>Location</li>
+                          <li>Ip Address</li>
+                          <li>Inbound Rate</li>
+                          <li>Outbound Rate</li>
+                          <li>Uptime</li>
+                          <li>Run Time</li>
+                        </ul>
+                      </div>
+                      <div class="lst-rt">
+                        <ul>
+                          <li>??</li>
+                          <li>
+                            <div ng-if="connections[deviceCfg.deviceID].connected" class="text-right">
+                              <span tooltip data-original-title="{{ connections[deviceCfg.deviceID].type.indexOf('Relay') > -1 ? '' : connections[deviceCfg.deviceID].type }}">
+                                {{deviceAddr(deviceCfg)}}
+                              </span>
+                            </div>
+                            <div ng-if="!connections[deviceCfg.deviceID].connected" class="text-right">
+                              <span ng-repeat="addr in deviceCfg.addresses"><span tooltip data-original-title="{{'Configured' | translate}}">{{addr}}</span><br></span>
+                              <span ng-repeat="addr in discoveryCache[deviceCfg.deviceID].addresses"><span tooltip data-original-title="{{'Discovered' | translate}}">{{addr}}</span><br></span>
+                            </div>
+                          </li>
+                          <li><span>{{connections[deviceCfg.deviceID].inbps*8 | metric}} bits/sec</span></li>
+                          <li><span>{{connections[deviceCfg.deviceID].outbps*8 | metric}} bits/sec</span></li>
+                          <li>??</li>
+                          <li>??</li>
+                        </ul>
+                      </div>
+                      <div class="lst-rt last">
+                        <ul>
+                          <li>&nbsp;</li>
+                          <li>Stats</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!--/selected-->
                   </div>
-                  <!--/selected-->
-
                 </div>
               </div>
             </div>

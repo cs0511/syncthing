@@ -9,3 +9,6 @@
 .dev-warn .hasCount{
     background-color: yellow;
 }
+.fade.in{
+    opacity: 1
+}
