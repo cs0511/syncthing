@@ -19,14 +19,6 @@
 
   <title ng-bind="thisDeviceName() + ' | Syncthing'"></title>
   <link href="vendor/bootstrap/css/daterangepicker.css" rel="stylesheet"/>
-  <link href="assets/font/raleway.css" rel="stylesheet"/>
-  <link href="vendor/font-awesome/css/font-awesome.css" rel="stylesheet"/>
-  <link href="assets/css/overrides.css" rel="stylesheet"/>
-  <link href="assets/css/theme.css" rel="stylesheet"/>
-  <link href="assets/css/style.css" rel="stylesheet"/>
-  <link href="assets/css/nav.css" rel="stylesheet"/>
-  <link href="vendor/fancytree/css/ui.fancytree.css" rel="stylesheet"/>
-
 
   <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="assets/css/style.css" rel="stylesheet" type="text/css">
@@ -153,12 +145,12 @@
               </div>
               <div class="lst-rt">
                 <ul>
-                  <li>??</li>
-                  <li>??</li>
+                  <li>-</li>
+                  <li>-</li>
                   <li>{{connectionsTotal.inbps*8 | metric}} bits/sec</li>
                   <li>{{connectionsTotal.outbps*8 | metric}} bits/sec</li>
                   <li>{{system.uptime | duration:"m"}}</li>
-                  <li>??</li>
+                  <li>-</li>
                 </ul>
               </div>
               <div class="lst-rt last">
@@ -217,7 +209,7 @@
                       </div>
                       <div class="lst-rt">
                         <ul>
-                          <li>??</li>
+                          <li>-</li>
                           <li>
                             <div ng-if="connections[deviceCfg.deviceID].connected" class="text-right">
                               <span tooltip data-original-title="{{ connections[deviceCfg.deviceID].type.indexOf('Relay') > -1 ? '' : connections[deviceCfg.deviceID].type }}">
@@ -226,13 +218,12 @@
                             </div>
                             <div ng-if="!connections[deviceCfg.deviceID].connected" class="text-right">
                               <span ng-repeat="addr in deviceCfg.addresses"><span tooltip data-original-title="{{'Configured' | translate}}">{{addr}}</span><br></span>
-                              <span ng-repeat="addr in discoveryCache[deviceCfg.deviceID].addresses"><span tooltip data-original-title="{{'Discovered' | translate}}">{{addr}}</span><br></span>
                             </div>
                           </li>
                           <li><span>{{connections[deviceCfg.deviceID].inbps*8 | metric}} bits/sec</span></li>
                           <li><span>{{connections[deviceCfg.deviceID].outbps*8 | metric}} bits/sec</span></li>
-                          <li>??</li>
-                          <li>??</li>
+                          <li>-</li>
+                          <li>-</li>
                         </ul>
                       </div>
                       <div class="lst-rt last">
